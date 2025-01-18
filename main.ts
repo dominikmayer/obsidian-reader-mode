@@ -7,7 +7,17 @@ export default class ReaderModePlugin extends Plugin {
 				if (!leaf) return;
 				if (!(leaf.view instanceof MarkdownView)) return;
 
+				const view = leaf.view;
+				const file = view.file;
+
 				try {
+					// Read file content to check if the note is empty
+					const content = await this.app.vault.cachedRead(file);
+					if (!content.trim()) {
+						// If the note is empty, do not force reader mode
+						return;
+					}
+
 					const state = leaf.getViewState();
 					if (!state.state) return;
 
