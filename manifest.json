@@ -1,11 +1,10 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "reader-mode",
+	"name": "Reader Mode",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Ensures notes are always opened in reader mode.",
+	"author": "Dominik Mayer",
+	"authorUrl": "https://www.dominikmayer.com",
 	"isDesktopOnly": false
 }
