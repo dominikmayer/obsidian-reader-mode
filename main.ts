@@ -1,4 +1,4 @@
-import { Plugin, WorkspaceLeaf, MarkdownView } from 'obsidian';
+import { Plugin, WorkspaceLeaf, MarkdownView, TFile } from 'obsidian';
 
 export default class ReaderModePlugin extends Plugin {
 	async onload() {
@@ -9,6 +9,8 @@ export default class ReaderModePlugin extends Plugin {
 
 				const view = leaf.view;
 				const file = view.file;
+
+				if (!file || !(file instanceof TFile)) return;
 
 				try {
 					// Read file content to check if the note is empty
