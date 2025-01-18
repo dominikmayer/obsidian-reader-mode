@@ -1,6 +1,6 @@
 # Obsidian Reader Mode
 
-This is a lightweight plugin for Obsidian (https://obsidian.md) that ensures every note opens in Reader Mode by default. It’s perfect for those who prefer to primarily read their notes – just like browsing Wikipedia – while still having the flexibility to quickly switch into editing mode when needed.
+This is a lightweight plugin for [Obsidian](https://obsidian.md) that ensures every note opens in Reader Mode by default. It’s perfect for those who prefer to primarily read their notes – just like browsing Wikipedia – while still having the flexibility to quickly switch into editing mode when needed.
 
 Reader Mode is ideal for notes with footnotes, embeds, images, or code snippets, offering a more comfortable reading experience. It also resolves the issue where links become unclickable in Edit Mode if the cursor happens to be inside them when the note is opened.
 
