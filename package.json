@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-reader-mode",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"description": "Ensures notes are always opened in reader mode.",
 	"main": "main.js",
 	"scripts": {
