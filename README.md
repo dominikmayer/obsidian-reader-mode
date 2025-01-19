@@ -7,3 +7,4 @@ Reader Mode is ideal for notes with footnotes, embeds, images, or code snippets,
 ### Other Plugins
 
 - [Yesterday](https://github.com/dominikmayer/obsidian-yesterday) lets you create and edit a [Yesterday](https://www.yesterday.md) journal in Obsidian.
+- [Note ID](https://github.com/dominikmayer/obsidian-note-id) Organizes notes by an ID property, providing a structured way to create and maintain a note sequence, inspired by [Zettelkasten](https://zettelkasten.de/introduction/) principles ("Folgezettel").
