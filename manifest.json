@@ -1,7 +1,7 @@
 {
 	"id": "reader-mode",
 	"name": "Reader Mode",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"minAppVersion": "0.15.0",
 	"description": "Ensures notes are always opened in reader mode.",
 	"author": "Dominik Mayer",
