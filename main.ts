@@ -1,53 +1,49 @@
 import { Plugin, WorkspaceLeaf, MarkdownView, TFile } from 'obsidian';
 
 export default class ReaderModePlugin extends Plugin {
-    private openFiles: Set<string> = new Set();
 
-    async onload() {
-        // Track initially open files
-        this.app.workspace.iterateAllLeaves(leaf => {
-            if (leaf.view instanceof MarkdownView && leaf.view.file) {
-                this.openFiles.add(leaf.view.file.path);
-            }
-        });
+	private newFilePath: string | null = null;
 
-        this.registerEvent(
-            this.app.workspace.on('layout-change', () => {
-                this.openFiles.clear();
-                this.app.workspace.iterateAllLeaves(leaf => {
-                    if (leaf.view instanceof MarkdownView && leaf.view.file) {
-                        this.openFiles.add(leaf.view.file.path);
-                    }
-                });
-            })
-        );
+	async onload() {
+		this.registerEvent(
+			this.app.workspace.on('active-leaf-change', async (leaf: WorkspaceLeaf | null) => {
 
-        this.registerEvent(
-            this.app.workspace.on('file-open', async (file: TFile | null) => {
-                if (!file || !(file instanceof TFile)) return;
+				if (!leaf) return;
+				if (!(leaf.view instanceof MarkdownView)) return;
 
-                const leaf = this.app.workspace.getActiveViewOfType(MarkdownView)?.leaf;
-                if (!leaf || !(leaf.view instanceof MarkdownView)) return;
+				const view = leaf.view;
+				const file = view.file;
+				if (!file || !(file instanceof TFile)) return;
 
-                // Only proceed if this is the first time we're opening this file
-                if (this.openFiles.has(file.path)) return;
-                this.openFiles.add(file.path);
+				if (this.newFilePath !== file.path) {
+					this.newFilePath = null;
+					return;
+				}
+				this.newFilePath = null;
 
-                try {
+				try {
+					const state = leaf.getViewState();
+					if (!state.state) return;
+
                     const content = await this.app.vault.cachedRead(file);
-                    if (!content.trim()) return;
+                    const strippedContent = content.replace(/^---\s*\n[\s\S]*?\n---\s*\n*/, '').trim();
+                    if (strippedContent) {
+                        state.state.mode = 'preview';
+                    } else {
+                        state.state.mode = 'source';
+                    }
 
-                    const state = leaf.getViewState();
-                    if (!state.state) return;
+					await leaf.setViewState(state);
+				} catch (error) {
+					console.error('Error forcing preview mode:', error);
+				}
+			})
+		);
 
-                    state.state.mode = 'preview';
-                    state.state.source = false;
-
-                    await leaf.setViewState(state);
-                } catch (error) {
-                    console.error('Error forcing preview mode:', error);
-                }
-            })
-        );
-    }
+		this.registerEvent(
+			this.app.workspace.on('file-open', async (file: TFile | null) => {
+				this.newFilePath = file ? file.path : null;
+			})
+		);
+	}
 }
