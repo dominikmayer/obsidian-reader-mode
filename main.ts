@@ -45,5 +45,13 @@ export default class ReaderModePlugin extends Plugin {
 				this.newFilePath = file ? file.path : null;
 			})
 		);
+
+        this.registerEvent(
+			this.app.vault.on('create', async (file: TFile) => {
+				if (file.extension === 'md') {
+                    this.newFilePath = file ? file.path : null;
+                }
+            })
+        );
 	}
 }
